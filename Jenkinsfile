@@ -1,15 +1,11 @@
 pipeline {
-    //agent any
-    agent {
-        node {
-            label 'docker'
-        }
-    }
+    agent any
 
     stages {
         stage('Build the docker image') {
             steps {
                 echo 'Building the docker image'
+                bash './jenkins_script/build_image.sh' 
 
                 // script {
                 // 	app = docker.build("echo")
@@ -33,21 +29,21 @@ pipeline {
                 // }
 
 
-                def branchName = "${env.BRANCH_NAME}"; //Get the branch name - so it can choose which tag to give for the image. 
-                def imagetag = "";
-                if (branchName == "master") {
-                    imagetag = "1.0.1_${env.GIT_HASH}";
-                }
-                else if (branchName == "dev") {
-                    imagetag = "dev_${env.GIT_HASH}";
-                }
-                else if (branchName == "staging") {
-                    imagetag = "staging_${env.GIT_HASH}";
-                }
+                // def branchName = "${env.BRANCH_NAME}"; //Get the branch name - so it can choose which tag to give for the image. 
+                // def imagetag = "";
+                // if (branchName == "master") {
+                //     imagetag = "1.0.1_${env.GIT_HASH}";
+                // }
+                // else if (branchName == "dev") {
+                //     imagetag = "dev_${env.GIT_HASH}";
+                // }
+                // else if (branchName == "staging") {
+                //     imagetag = "staging_${env.GIT_HASH}";
+                // }
                 
-                echo "The image tag will be set to ${imagetag}"
+                // echo "The image tag will be set to ${imagetag}"
 
-
+                // docker.build("echo:${imagetag}")
 
                 echo 'The image has been pushed to GCR. '
             }
