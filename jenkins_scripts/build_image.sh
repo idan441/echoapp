@@ -24,7 +24,7 @@ project_id="coastal-range-267909" #This is the project id as shown in gcloud con
 #echo "the commit hash is ${GIT_HASH}" 
 echo "the branch name is ${BRANCH_NAME}" 
 echo "the build number is ${BUILD_NUMBER} - will be used if it is the master branch" 
-echo "the branch name is ${GIT_HASH} - will be used if it is dev or staging branch" 
+echo "the branch name is ${GIT_COMMIT} - will be used if it is dev or staging branch" 
 
 
 #Choose the image tag 
