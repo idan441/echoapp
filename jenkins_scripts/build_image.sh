@@ -34,9 +34,9 @@ if [ "$BRANCH_NAME" == "master" ]; then
     echo "The build number will be 0.1.${last_jenkins_build_number}"
     imagetag="0.1.${BUILD_NUMBER}"
 elif [ "$BRANCH_NAME" == "dev" ]; then
-    imagetag="dev_${GIT_HASH}"
+    imagetag="dev_${GIT_COMMIT}"
 elif [ "$BRANCH_NAME" == "staging" ]; then
-    imagetag="staging_${GIT_HASH}"
+    imagetag="staging_${GIT_COMMIT}"
 fi
 
 echo "the image will be tagged as - ${imagetag}"
