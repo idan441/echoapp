@@ -34,7 +34,7 @@ echo "the image will be tagged as - ${imagetag}"
 
 #Now build the image. 
 #The docker command assumes you are located at the directory with the dockerfile. 
-docker build -t ${appname}:${imagetag} ../.
+sudo docker build -t ${appname}:${imagetag} ../.
 
 echo "finished building the image, end of shell script. " 
 
