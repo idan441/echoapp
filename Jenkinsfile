@@ -5,11 +5,7 @@ pipeline {
         stage('Build the docker image') {
             steps {
                 echo 'Building the docker image'
-                sh './jenkins_scripts/build_image.sh' 
-
-                // script {
-                // 	app = docker.build("echo")
-                // }
+                sh './jenkins_scripts/build_image.sh' //This script will determine the branch, create teh right tag - and build the image with docker. 
             }
         }
         stage('Test') {
@@ -19,32 +15,17 @@ pipeline {
         }
         stage('Deploy to GCR') {
             steps {
-                echo 'Deploying....'
+                echo 'Deploying to GCR'
 
-                // script {
-			    //     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-			    //     	app.push("${BUILD_NUMBER}")
-			    //         app.push("latest")
-			    //     }
-                // }
+                docker.withRegistry('https://us.gcr.io', '[my-credential-id]') {
+                    dockerImage.push 'latest'
+                }
 
-
-                // def branchName = "${env.BRANCH_NAME}"; //Get the branch name - so it can choose which tag to give for the image. 
-                // def imagetag = "";
-                // if (branchName == "master") {
-                //     imagetag = "1.0.1_${env.GIT_HASH}";
-                // }
-                // else if (branchName == "dev") {
-                //     imagetag = "dev_${env.GIT_HASH}";
-                // }
-                // else if (branchName == "staging") {
-                //     imagetag = "staging_${env.GIT_HASH}";
-                // }
-                
-                // echo "The image tag will be set to ${imagetag}"
-
-                // docker.build("echo:${imagetag}")
-
+                withCredentials([[$class: 'FileBinding', credentialsId: 'Google-GCR-auth', variable: 'GOOGLE_APPLICATION_CREDENTIALS']]) {
+                    sh 'echo "${GOOGLE_APPLICATION_CREDENTIALS}"' // returns ****
+                    sh 'gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS'
+                    sh './deploy.sh'
+                }
                 echo 'The image has been pushed to GCR. '
             }
         }
