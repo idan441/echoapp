@@ -20,11 +20,6 @@ echo "the branch name is ${BUILD_NUMBER}"
 imagetag=""
 
 if [ "$BRANCH_NAME" == "master" ]; then
-    #To count the number of build I store the number in the file jenkins_build_number
-    last_jenkins_build_number=$(cat jenkins_build_number) #Get the numeber of the last build done by Jenkins. 
-    last_jenkins_build_number=$(($last_jenkins_build_number+1)) #Increment by one number. 
-    echo $last_jenkins_build_number > jenkins_build_number #Update the number for the next Jenkins build. 
-
     echo "The build number will be 0.1.${last_jenkins_build_number}"
     imagetag="0.1.${BUILD_NUMBER}"
 elif [ "$BRANCH_NAME" == "dev" ]; then
@@ -41,3 +36,9 @@ docker build -t ${appname}:${imagetag} ../.
 
 echo "finished building the image, end of shell script. " 
 
+
+#Export the image name, so I can use it later in the deploy stage. 
+echo "${appname}:${imagetag}" > image_name
+#In the next stages in the pipeline I will need to have the image name in order to push it to GCR. 
+#I chose to transfer the image name by writing and reading it from a file. 
+#At the end of the pipeline the file will be destroyed by Jenkins. The file does not contain secret data. 
