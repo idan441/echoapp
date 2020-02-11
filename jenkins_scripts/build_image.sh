@@ -23,7 +23,7 @@ if [ "$BRANCH_NAME" == "master" ]; then
     echo $last_jenkins_build_number > jenkins_build_number #Update the number for the next Jenkins build. 
 
     echo "The build number will be 0.1.${last_jenkins_build_number}"
-    imagetag="0.1.${last_jenkins_build_number}"
+    imagetag="0.1.${env.BUILD_NUMBER}"
 elif [ "$BRANCH_NAME" == "dev" ]; then
     imagetag="dev_${GITHASH}"
 elif [ "$BRANCH_NAME" == "staging" ]; then
@@ -34,7 +34,7 @@ echo "the image will be tagged as - ${imagetag}"
 
 #Now build the image. 
 #The docker command assumes you are located at the directory with the dockerfile. 
-sudo docker build -t ${appname}:${imagetag} ../.
+docker build -t ${appname}:${imagetag} ../.
 
 echo "finished building the image, end of shell script. " 
 
