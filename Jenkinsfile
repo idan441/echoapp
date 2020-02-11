@@ -5,7 +5,7 @@ pipeline {
         stage('Build the docker image') {
             steps {
                 echo 'Building the docker image'
-                bash './jenkins_script/build_image.sh' 
+                sh './jenkins_script/build_image.sh' 
 
                 // script {
                 // 	app = docker.build("echo")
