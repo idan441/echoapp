@@ -36,16 +36,19 @@ pipeline {
                 def branchName = "${env.BRANCH_NAME}"; //Get the branch name - so it can choose which tag to give for the image. 
                 def imagetag = "";
                 if (branchName == "master") {
-                    imagetag = "1.0.1_${env.GIT_HASH}"
+                    imagetag = "1.0.1_${env.GIT_HASH}";
                 }
-                if (branchName == "dev") {
+                else if (branchName == "dev") {
                     imagetag = "dev_${env.GIT_HASH}";
                 }
-                if (branchName == "staging") {
+                else if (branchName == "staging") {
                     imagetag = "staging_${env.GIT_HASH}";
                 }
                 
-                echo 'The image tag will be set to ' + imagetag
+                echo "The image tag will be set to ${imagetag}"
+
+
+
                 echo 'The image has been pushed to GCR. '
             }
         }
