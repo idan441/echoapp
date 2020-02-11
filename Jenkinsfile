@@ -18,7 +18,7 @@ pipeline {
                 echo 'Deploying to GCR'
 
                 withCredentials([[$class: 'FileBinding', credentialsId: 'Google-GCR-auth', variable: 'GOOGLE_APPLICATION_CREDENTIALS']]) {
-                    sh 'echo "${GOOGLE_APPLICATION_CREDENTIALS}" && gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS && ./jenkins_scripts/deploy.sh'
+                    sh 'echo "${GOOGLE_APPLICATION_CREDENTIALS}" && gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS && ./jenkins_scripts/deploy.sh && image_name=$(cat image_name) && docker push ${image_name} '
                 }
                 echo 'The image has been pushed to GCR. '
             }
