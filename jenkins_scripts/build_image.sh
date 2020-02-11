@@ -23,8 +23,8 @@ project_id="coastal-range-267909" #This is the project id as shown in gcloud con
 #Start by showing the git commit information. 
 #echo "the commit hash is ${GIT_HASH}" 
 echo "the branch name is ${BRANCH_NAME}" 
-echo "the branch name is ${BRANCH_NUMBER}" 
-echo "the branch name is ${BUILD_NUMBER}" 
+echo "the build number is ${BUILD_NUMBER} - will be used if it is the master branch" 
+echo "the Git commit hash is ${GIT_COMMIT} - will be used if it is dev or staging branch" 
 
 
 #Choose the image tag 
@@ -34,9 +34,9 @@ if [ "$BRANCH_NAME" == "master" ]; then
     echo "The build number will be 0.1.${last_jenkins_build_number}"
     imagetag="0.1.${BUILD_NUMBER}"
 elif [ "$BRANCH_NAME" == "dev" ]; then
-    imagetag="dev_${GITHASH}"
+    imagetag="dev_${GIT_COMMIT}"
 elif [ "$BRANCH_NAME" == "staging" ]; then
-    imagetag="staging_${GITHASH}"
+    imagetag="staging_${GIT_COMMIT}"
 fi
 
 echo "the image will be tagged as - ${imagetag}"
