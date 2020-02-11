@@ -6,8 +6,19 @@
 # BRANCH_NAME=master
 
 
+### dit your definitions here! ###
+
 #Set up the desired image name. ( application name. ) 
+### The three variables below should be changed according to your project, in this case echo application. ###
 appname="echo" #This will be name of the images created by this script. 
+data_center="us.gcr.io" #This is unites-dtates data center, you can change it to other places. 
+project_id="coastal-range-267909" #This is the project id as shown in gcloud console. 
+
+
+
+### Do not change anything afterwars! ###
+
+
 
 #Start by showing the git commit information. 
 #echo "the commit hash is ${GIT_HASH}" 
@@ -38,7 +49,7 @@ echo "finished building the image, end of shell script. "
 
 
 #Export the image name, so I can use it later in the deploy stage. 
-echo "${appname}:${imagetag}" > image_name
+echo "${data_center}/${project_id}/${appname}:${imagetag}" > image_name
 #In the next stages in the pipeline I will need to have the image name in order to push it to GCR. 
 #I chose to transfer the image name by writing and reading it from a file. 
 #At the end of the pipeline the file will be destroyed by Jenkins. The file does not contain secret data. 

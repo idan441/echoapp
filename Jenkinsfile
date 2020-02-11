@@ -17,10 +17,6 @@ pipeline {
             steps {
                 echo 'Deploying to GCR'
 
-                // docker.withRegistry('https://us.gcr.io', '[my-credential-id]') {
-                //     dockerImage.push 'latest'
-                // }
-
                 withCredentials([[$class: 'FileBinding', credentialsId: 'Google-GCR-auth', variable: 'GOOGLE_APPLICATION_CREDENTIALS']]) {
                     sh 'echo "${GOOGLE_APPLICATION_CREDENTIALS}"' // returns ****
                     sh 'gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS'
