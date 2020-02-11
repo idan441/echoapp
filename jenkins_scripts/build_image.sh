@@ -2,16 +2,19 @@
 
 #For debugging uses - 
 #This variables are supplies by Jenkins, so no need to define them while running the script from inside a Jenkinsfile. 
-GIT_HASH="8d270839c"
-BRANCH_NAME=master
+# GIT_HASH="8d270839c"
+# BRANCH_NAME=master
 
 
 #Set up the desired image name. ( application name. ) 
 appname="echo" #This will be name of the images created by this script. 
 
 #Start by showing the git commit information. 
-echo "the commit hash is ${GIT_HASH}" 
+#echo "the commit hash is ${GIT_HASH}" 
 echo "the branch name is ${BRANCH_NAME}" 
+echo "the branch name is ${BRANCH_NUMBER}" 
+echo "the branch name is ${BUILD_NUMBER}" 
+
 
 #Choose the image tag 
 imagetag=""
@@ -23,7 +26,7 @@ if [ "$BRANCH_NAME" == "master" ]; then
     echo $last_jenkins_build_number > jenkins_build_number #Update the number for the next Jenkins build. 
 
     echo "The build number will be 0.1.${last_jenkins_build_number}"
-    imagetag="0.1.${env.BUILD_NUMBER}"
+    imagetag="0.1.${BUILD_NUMBER}"
 elif [ "$BRANCH_NAME" == "dev" ]; then
     imagetag="dev_${GITHASH}"
 elif [ "$BRANCH_NAME" == "staging" ]; then
