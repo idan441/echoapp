@@ -33,16 +33,16 @@ pipeline {
                 // }
 
 
-                String branchName = "${env.BRANCH_NAME}" //Get the branch name - so it can choose which tag to give for the image. 
-                String imagetag = ""
+                String branchName = "${env.BRANCH_NAME}"; //Get the branch name - so it can choose which tag to give for the image. 
+                String imagetag = "";
                 if (branchName == "master") {
                     imagetag = ("1.0.1" + ${env.GIT_HASH})
                 }
                 if (branchName == "dev") {
-                    imagetag = ("dev_" + ${env.GIT_HASH})
+                    imagetag = ("dev_" + ${env.GIT_HASH});
                 }
                 if (branchName == "staging") {
-                    imagetag = ("staging_" + ${env.GIT_HASH}) 
+                    imagetag = ("staging_" + ${env.GIT_HASH});
                 }
                 
                 echo 'The image tag will be set to ' + imagetag
