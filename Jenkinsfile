@@ -33,8 +33,8 @@ pipeline {
                 // }
 
 
-                def branchName = "${env.BRANCH_NAME}" //Get the branch name - so it can choose which tag to give for the image. 
-                def imagetag = ""
+                String branchName = "${env.BRANCH_NAME}" //Get the branch name - so it can choose which tag to give for the image. 
+                String imagetag = ""
                 if (branchName == "master") {
                     imagetag = ("1.0.1" + ${env.GIT_HASH})
                 }
