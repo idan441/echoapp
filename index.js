@@ -49,6 +49,6 @@ const echo = (req, res) => {
   }
 }
 
-app.get('/staging', (req, res) => echo(req, res))
+app.get('/staging/', (req, res) => echo(req, res))
 
 app.listen(config.port, () => logger.info(`Echo listening on port ${config.port}!`))
