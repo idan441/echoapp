@@ -13,10 +13,6 @@ logger.info("Starting echo app!")
 logger.debug("Configuration: ", config)
 
 
-//Print the environment name, for simplicity of the example. 
-res.send(`Development environment. <br />`);
-
-
 if (!config.persist) {
   logger.warn('Persistency is OFF')
 } else {
@@ -50,7 +46,7 @@ const echo = (req, res) => {
 	input
       })
     }
-    res.send(`Echo says: ${input}`)
+    res.send(`Staging environment<br />Echo says: ${input}`)
   }
 }
 
