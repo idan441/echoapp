@@ -46,7 +46,7 @@ const echo = (req, res) => {
 	input
       })
     }
-    res.send(`Staging environment<br />Echo says: ${input}`)
+    res.send(`Development environment<br />Echo says: ${input}`)
   }
 }
 
