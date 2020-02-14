@@ -12,6 +12,12 @@ let db
 logger.info("Starting echo app!")
 logger.debug("Configuration: ", config)
 
+
+//Print the environment name, for simplicity of the example. 
+res.send(`Production environment. <br />`);
+
+
+
 if (!config.persist) {
   logger.warn('Persistency is OFF')
 } else {
