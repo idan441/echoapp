@@ -14,7 +14,7 @@ logger.debug("Configuration: ", config)
 
 
 //Print the environment name, for simplicity of the example. 
-res.send(`Production environment. <br />`);
+res.send(`Development environment. <br />`);
 
 
 if (!config.persist) {
